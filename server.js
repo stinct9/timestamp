@@ -34,8 +34,6 @@ app.get('/:data', function (req, res) {
       natural : null
     };
     
-    console.log(Date.parse(data));
-    
     if ((new Date(data*1000)).getTime() > 0) {
         res.send(JSON.stringify(returnUnix(data)));
     }
@@ -44,8 +42,12 @@ app.get('/:data', function (req, res) {
         var data = Date.parse(data)/1000;
         res.send(JSON.stringify(returnUnix(data)));
     }
+    
+    else if (isNaN(Date.parse(data))) {
+        //console.log(true);
+        res.end(JSON.stringify(nodata));
+    }
 
-    else res.send(nodata);
 
 });
 
